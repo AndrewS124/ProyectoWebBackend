@@ -35,42 +35,60 @@ public class UsuarioRepositoryTest {
     @Test
     public void  ReadUsuario(){
 
-        Iterable<Usuario> usuarios = usuarioRepository.findAll();
-        int cont = 0;
-        for(Usuario u : usuarios)
-            cont++;
-        assertTrue(cont >= 1);
+        Usuario usuario = new Usuario();
+        usuario.setNombre("hola");
+        usuario.setCorreo("correo123@gmail.com");
+        usuario.setContraseña("contraseña");
+        usuario.setTipo("admin");
+
+        usuarioRepository.save(usuario);
+
+        Usuario usuarioLeido = usuarioRepository.findById(usuario.getId()).orElse(null);
+        assertNotNull(usuarioLeido);
+        assertEquals("hola", usuarioLeido.getNombre());
+
     }
 
     @Test
     public void UpdateUsuaio(){
 
-        Iterable<Usuario> usuarios = usuarioRepository.findAll();
-        for(Usuario usuario: usuarios){
-            if("Andres".equals(usuario.getNombre())){
+        // Crear un usuario inicial con tipo "admin"
+        Usuario usuario = new Usuario();
+        usuario.setNombre("AndresR");
+        usuario.setCorreo("correo123@gmail.com");
+        usuario.setContraseña("contraseña");
+        usuario.setTipo("admin");
+        usuarioRepository.save(usuario);
 
-                usuario.setTipo("votante");
-                usuarioRepository.save(usuario);
+        usuario.setTipo("votante");
+        usuarioRepository.save(usuario);
 
-            }
+        Usuario updatedUsuario = usuarioRepository.findById(usuario.getId()).orElse(null);
+        assertNotNull(updatedUsuario);
 
+        assertEquals("votante", updatedUsuario.getTipo());
 
-            Usuario updatedUsuario =  usuarioRepository.findById(usuario.getId()).orElse(null);
-            assertNotNull(updatedUsuario);
-            assertEquals("votante", updatedUsuario.getTipo());
-
-        }
 
     }
 
     @Test
     public void DeleteUsuario(){
 
+        Usuario usuario = new Usuario();
+        usuario.setNombre("pruebaelminar");
+        usuario.setCorreo("correo123@gmail.com");
+        usuario.setContraseña("contraseña");
+        usuario.setTipo("admin");
+        usuarioRepository.save(usuario);
+
         Iterable<Usuario> usuarios = usuarioRepository.findAll();
-        for(Usuario usuario: usuarios){
-            usuarioRepository.deleteById(usuario.getId());
-            Usuario deletedUsuario= usuarioRepository.findById(usuario.getId()).orElse(null);
-            assertNull(deletedUsuario);
+        for(Usuario usr: usuarios){
+            if("pruebaelminar".equals(usr.getNombre())){
+                usuarioRepository.deleteById(usr.getId());
+                Usuario deletedUsuario= usuarioRepository.findById(usr.getId()).orElse(null);
+                assertNull(deletedUsuario);
+            }
+
         }
 
 

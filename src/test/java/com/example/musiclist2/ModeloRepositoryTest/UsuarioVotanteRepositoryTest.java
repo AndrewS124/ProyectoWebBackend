@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.validation.ConstraintViolationException;
 
+import java.util.Optional;
+
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -79,19 +81,19 @@ public class UsuarioVotanteRepositoryTest {
     @Test
     public void DeleteUsuarioVotante(){
 
-        Iterable<UsuarioVotante> usuarioVotantes = usuarioVotanteRepository.findAll();
+        // Crear una canción y guardarla en el repositorio
+        Cancion cancion = new Cancion();
+        cancion.setNombreCancion("Cancion1");
+        cancion.setAutor("Artista1");
+        cancionRepository.save(cancion);
 
-        for(UsuarioVotante uv : usuarioVotantes){
-            if("Andres".equals(uv.getNombre())){
+        UsuarioVotante usuarioVotante = new UsuarioVotante("Nombre", "correo@example.com", "contraseña", true, true, cancion);
+        usuarioVotanteRepository.save(usuarioVotante);
 
-                usuarioVotanteRepository.deleteById(uv.getId());
+        usuarioVotanteRepository.deleteById(usuarioVotante.getId());
 
-                UsuarioVotante deletedUsuarioV =  usuarioVotanteRepository.findById(uv.getId()).orElse(null);
-                assert deletedUsuarioV != null;
-                assertNull(deletedUsuarioV);
-
-            }
-        }
+        Optional<UsuarioVotante> deletedUsuarioVotanteOptional = usuarioVotanteRepository.findById(usuarioVotante.getId());
+        assertFalse(deletedUsuarioVotanteOptional.isPresent());
 
     }
 

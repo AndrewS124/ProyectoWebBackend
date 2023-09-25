@@ -11,6 +11,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.validation.ConstraintViolationException;
 
+import java.util.Optional;
+
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -69,21 +71,16 @@ public class UsuarioAdminRepositoryTest {
     @Test
     public void DeleteUsuarioAdmin(){
 
-        Iterable<UsuarioAdmin> usuarioAdmins = usuarioAdminRepository.findAll();
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("Nombre", "correo@example.com", "contraseña", true);
+        usuarioAdminRepository.save(usuarioAdmin);
 
-        for(UsuarioAdmin ua : usuarioAdmins){
-            if("Andres".equals(ua.getNombre())){
+        usuarioAdminRepository.deleteById(usuarioAdmin.getId());
 
-                usuarioAdminRepository.deleteById(ua.getId());
-
-                UsuarioAdmin deletedUsuarioAdmin =  usuarioAdminRepository.findById(ua.getId()).orElse(null);
-                assert deletedUsuarioAdmin != null;
-                assertNull(deletedUsuarioAdmin);
-
-            }
-        }
-
+        // Intentar encontrar el usuario administrador eliminado en el repositorio
+        Optional<UsuarioAdmin> deletedUsuarioAdminOptional = usuarioAdminRepository.findById(usuarioAdmin.getId());
+        assertFalse(deletedUsuarioAdminOptional.isPresent());
     }
+
 
     @Test
     public void CreateUsuarioAdminConDatosInvalidos() {
