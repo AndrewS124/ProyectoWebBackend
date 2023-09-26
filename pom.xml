@@ -39,8 +39,21 @@
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>8.0.0.Final</version> <!-- Versión actualizada -->
+			<version>6.2.0.Final</version> <!-- Versión actualizada -->
 		</dependency>
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>8.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.5</version> <!-- Utiliza la versión actual de Jackson -->
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

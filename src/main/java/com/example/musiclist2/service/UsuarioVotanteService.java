@@ -1,3 +1,4 @@
+
 package com.example.musiclist2.service;
 
 import com.example.musiclist2.modelo.UsuarioVotante;
@@ -13,22 +14,22 @@ public class UsuarioVotanteService implements UsuarioVotanteRepository {
     UsuarioVotanteRepository usuarioVotanteRepository;
     @Override
     public <S extends UsuarioVotante> S save(S entity) {
-        return null;
+        return usuarioVotanteRepository.save(entity);
     }
 
     @Override
     public <S extends UsuarioVotante> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
+        return usuarioVotanteRepository.saveAll(entities);
     }
 
     @Override
-    public Optional<UsuarioVotante> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<UsuarioVotante> findById(Long id) {
+        return usuarioVotanteRepository.findById(id);
     }
 
     @Override
-    public boolean existsById(Long aLong) {
-        return false;
+    public boolean existsById(Long id) {
+        return usuarioVotanteRepository.existsById(id);
     }
 
     @Override
@@ -37,37 +38,40 @@ public class UsuarioVotanteService implements UsuarioVotanteRepository {
     }
 
     @Override
-    public Iterable<UsuarioVotante> findAllById(Iterable<Long> longs) {
-        return null;
+    public Iterable<UsuarioVotante> findAllById(Iterable<Long> ids) {
+        return usuarioVotanteRepository.findAllById(ids);
     }
 
     @Override
     public long count() {
-        return 0;
+        return usuarioVotanteRepository.count();
     }
 
     @Override
-    public void deleteById(Long aLong) {
+    public void deleteById(Long id) {
+        usuarioVotanteRepository.deleteById(id);
 
     }
 
     @Override
     public void delete(UsuarioVotante entity) {
-
+        usuarioVotanteRepository.delete(entity);
     }
 
-    @Override
-    public void deleteAllById(Iterable<? extends Long> longs) {
-
-    }
 
     @Override
     public void deleteAll(Iterable<? extends UsuarioVotante> entities) {
-
+        usuarioVotanteRepository.deleteAll(entities);
     }
 
     @Override
     public void deleteAll() {
+        usuarioVotanteRepository.deleteAll();
+    }
 
+    @Override
+    public void deleteAllById(Iterable<? extends Long> ids) {
+        usuarioVotanteRepository.deleteAllById(ids);
     }
 }
+

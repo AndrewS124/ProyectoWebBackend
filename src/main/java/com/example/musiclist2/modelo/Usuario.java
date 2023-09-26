@@ -4,7 +4,6 @@ package com.example.musiclist2.modelo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

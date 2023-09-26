@@ -5,6 +5,8 @@ import com.example.musiclist2.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,22 +15,22 @@ public class UsuarioService implements UsuarioRepository {
     UsuarioRepository usuarioRepository;
     @Override
     public <S extends Usuario> S save(S entity) {
-        return null;
+        return usuarioRepository.save(entity);
     }
 
     @Override
     public <S extends Usuario> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
+        return usuarioRepository.saveAll(entities);
     }
 
     @Override
-    public Optional<Usuario> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<Usuario> findById(Long id) {
+        return usuarioRepository.findById(id);
     }
 
     @Override
-    public boolean existsById(Long aLong) {
-        return false;
+    public boolean existsById(Long id) {
+        return usuarioRepository.existsById(id);
     }
 
     @Override
@@ -38,36 +40,42 @@ public class UsuarioService implements UsuarioRepository {
 
     @Override
     public Iterable<Usuario> findAllById(Iterable<Long> longs) {
-        return null;
+        return usuarioRepository.findAllById(longs);
     }
 
     @Override
     public long count() {
-        return 0;
+        return usuarioRepository.count();
     }
 
     @Override
-    public void deleteById(Long aLong) {
-
+    public void deleteById(Long id) {
+        usuarioRepository.deleteAllById(Collections.singletonList(id));
     }
 
     @Override
     public void delete(Usuario entity) {
-
+        usuarioRepository.delete(entity);
     }
 
     @Override
     public void deleteAllById(Iterable<? extends Long> longs) {
-
+        usuarioRepository.deleteAllById(longs);
     }
 
     @Override
     public void deleteAll(Iterable<? extends Usuario> entities) {
-
+        usuarioRepository.deleteAll(entities);
     }
 
     @Override
     public void deleteAll() {
+        usuarioRepository.deleteAll();
+    }
 
+    @Override
+    public List<Usuario> findUsuariosByTipo(String tipo) {
+        return null;
     }
 }
+

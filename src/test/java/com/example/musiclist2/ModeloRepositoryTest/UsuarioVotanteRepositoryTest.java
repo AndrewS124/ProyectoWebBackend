@@ -21,81 +21,107 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UsuarioVotanteRepositoryTest {
 
     @Autowired
-    UsuarioVotanteRepository usuarioVotanteRepository;
+    private UsuarioVotanteRepository usuarioVotanteRepository;
 
     @Autowired
-    CancionRepository cancionRepository;
+    private CancionRepository cancionRepository;
 
     @Test
-    public void createUsuarioVotante() {
+    public void CreateUsuarioVotante() {
         Cancion cancion = new Cancion();
-        cancion.setNombreCancion("Cancion1");
-        cancion.setAutor("Artista1");
+        cancion.setNombreCancion("CancionPrueba");
+        cancion.setAutor("AutorPrueba");
         cancionRepository.save(cancion);
 
-        UsuarioVotante usuarioVotante = new UsuarioVotante("Nombre", "correo@example.com", "contraseña", true, true, cancion);
+        UsuarioVotante usuarioVotante = new UsuarioVotante("VotantePrueba", "votante@example.com", "password", true, true, cancion);
         usuarioVotanteRepository.save(usuarioVotante);
 
-        UsuarioVotante usuarioVotanteGuardado = usuarioVotanteRepository.findById(usuarioVotante.getId()).orElse(null);
-        assert usuarioVotanteGuardado != null;
-        assertNotNull(usuarioVotanteGuardado);
-        assertEquals("Nombre", usuarioVotanteGuardado.getNombre());
-        assertTrue(usuarioVotanteGuardado.isActivacion());
-        assertEquals(cancion.getId(), usuarioVotanteGuardado.getVotocancion().getId());
+        assertNotNull(usuarioVotante.getId());
+
+        UsuarioVotante savedUsuarioVotante = usuarioVotanteRepository.findById(usuarioVotante.getId()).orElse(null);
+        assertNotNull(savedUsuarioVotante);
+        assertEquals("VotantePrueba", savedUsuarioVotante.getNombre());
+        assertEquals("votante@example.com", savedUsuarioVotante.getCorreo());
+        assertEquals("password", savedUsuarioVotante.getContraseña());
+        assertTrue(savedUsuarioVotante.isAutenticacion());
+        assertEquals("Votante", savedUsuarioVotante.getTipo());
+        assertTrue(savedUsuarioVotante.isActivacion());
+        assertNotNull(savedUsuarioVotante.getVotocancion());
+        assertEquals("CancionPrueba", savedUsuarioVotante.getVotocancion().getNombreCancion());
+        assertEquals("AutorPrueba", savedUsuarioVotante.getVotocancion().getAutor());
     }
 
     @Test
-    public void ReadUsuarioAdmin(){
-
-        Iterable<UsuarioVotante> usuarioVotantes = usuarioVotanteRepository.findAll();
-
-        int cont = 0;
-        for(UsuarioVotante ua : usuarioVotantes)
-            cont++;
-        assertTrue(cont >= 1);
-
-
-    }
-
-    @Test
-    public void UpdateUsuarioAdmin(){
-
-        Iterable<UsuarioVotante> usuarioVotantes = usuarioVotanteRepository.findAll();
-
-        for(UsuarioVotante uv : usuarioVotantes){
-            if("Nombre".equals(uv.getNombre())){
-                uv.setNombre("Andres");
-                usuarioVotanteRepository.save(uv);
-
-                UsuarioVotante updateUsuarioVotante =  usuarioVotanteRepository.findById(uv.getId()).orElse(null);
-                assert updateUsuarioVotante != null;
-                assertNotNull(updateUsuarioVotante);
-                assertEquals("Andres", updateUsuarioVotante.getNombre());
-
-            }
-        }
-
-
-    }
-
-    @Test
-    public void DeleteUsuarioVotante(){
-
-        // Crear una canción y guardarla en el repositorio
+    public void ReadUsuarioVotante() {
         Cancion cancion = new Cancion();
-        cancion.setNombreCancion("Cancion1");
-        cancion.setAutor("Artista1");
+        cancion.setNombreCancion("CancionPrueba");
+        cancion.setAutor("AutorPrueba");
         cancionRepository.save(cancion);
 
-        UsuarioVotante usuarioVotante = new UsuarioVotante("Nombre", "correo@example.com", "contraseña", true, true, cancion);
+        UsuarioVotante usuarioVotante = new UsuarioVotante("VotantePrueba", "votante@example.com", "password", true, true, cancion);
+        usuarioVotanteRepository.save(usuarioVotante);
+
+        UsuarioVotante foundUsuarioVotante = usuarioVotanteRepository.findById(usuarioVotante.getId()).orElse(null);
+        assertNotNull(foundUsuarioVotante);
+        assertEquals("VotantePrueba", foundUsuarioVotante.getNombre());
+        assertEquals("votante@example.com", foundUsuarioVotante.getCorreo());
+        assertEquals("password", foundUsuarioVotante.getContraseña());
+        assertTrue(foundUsuarioVotante.isAutenticacion());
+        assertEquals("Votante", foundUsuarioVotante.getTipo());
+        assertTrue(foundUsuarioVotante.isActivacion());
+        assertNotNull(foundUsuarioVotante.getVotocancion());
+        assertEquals("CancionPrueba", foundUsuarioVotante.getVotocancion().getNombreCancion());
+        assertEquals("AutorPrueba", foundUsuarioVotante.getVotocancion().getAutor());
+    }
+
+    @Test
+    public void UpdateUsuarioVotante() {
+        Cancion cancion = new Cancion();
+        cancion.setNombreCancion("CancionPrueba");
+        cancion.setAutor("AutorPrueba");
+        cancionRepository.save(cancion);
+
+        UsuarioVotante usuarioVotante = new UsuarioVotante("VotanteAct", "votanteact@example.com", "oldpassword", false, false, cancion);
+        usuarioVotanteRepository.save(usuarioVotante);
+
+        // Actualiza el usuarioVotante
+        usuarioVotante.setNombre("NuevoVotante");
+        usuarioVotante.setCorreo("nuevovotante@example.com");
+        usuarioVotante.setContraseña("newpassword");
+        usuarioVotante.setAutenticacion(true);
+        usuarioVotante.setActivacion(true);
+        usuarioVotanteRepository.save(usuarioVotante);
+
+        UsuarioVotante updatedUsuarioVotante = usuarioVotanteRepository.findById(usuarioVotante.getId()).orElse(null);
+        assertNotNull(updatedUsuarioVotante);
+        assertEquals("NuevoVotante", updatedUsuarioVotante.getNombre());
+        assertEquals("nuevovotante@example.com", updatedUsuarioVotante.getCorreo());
+        assertEquals("newpassword", updatedUsuarioVotante.getContraseña());
+        assertTrue(updatedUsuarioVotante.isAutenticacion());
+        assertEquals("Votante", updatedUsuarioVotante.getTipo());
+        assertTrue(updatedUsuarioVotante.isActivacion());
+        assertNotNull(updatedUsuarioVotante.getVotocancion());
+        assertEquals("CancionPrueba", updatedUsuarioVotante.getVotocancion().getNombreCancion());
+        assertEquals("AutorPrueba", updatedUsuarioVotante.getVotocancion().getAutor());
+    }
+
+    @Test
+    public void DeleteUsuarioVotante() {
+        Cancion cancion = new Cancion();
+        cancion.setNombreCancion("CancionPrueba");
+        cancion.setAutor("AutorPrueba");
+        cancionRepository.save(cancion);
+
+        UsuarioVotante usuarioVotante = new UsuarioVotante("DelVotante", "delvotante@example.com", "password", true, true, cancion);
         usuarioVotanteRepository.save(usuarioVotante);
 
         usuarioVotanteRepository.deleteById(usuarioVotante.getId());
 
-        Optional<UsuarioVotante> deletedUsuarioVotanteOptional = usuarioVotanteRepository.findById(usuarioVotante.getId());
-        assertFalse(deletedUsuarioVotanteOptional.isPresent());
-
+        // Verifica que el usuarioVotante haya sido eliminado correctamente
+        UsuarioVotante deletedUsuarioVotante = usuarioVotanteRepository.findById(usuarioVotante.getId()).orElse(null);
+        assertNull(deletedUsuarioVotante);
     }
+
 
     @Test
     public void CreateUsuarioAdminConDatosInvalidos() {
@@ -106,4 +132,28 @@ public class UsuarioVotanteRepositoryTest {
         });
     }
 
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

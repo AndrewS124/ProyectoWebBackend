@@ -13,22 +13,22 @@ public class UsuarioAdminService implements UsuarioAdminRepository {
     UsuarioAdminRepository usuarioAdminRepository;
     @Override
     public <S extends UsuarioAdmin> S save(S entity) {
-        return null;
+        return usuarioAdminRepository.save(entity);
     }
 
     @Override
     public <S extends UsuarioAdmin> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
+        return usuarioAdminRepository.saveAll(entities);
     }
 
     @Override
-    public Optional<UsuarioAdmin> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<UsuarioAdmin> findById(Long id) {
+        return usuarioAdminRepository.findById(id);
     }
 
     @Override
-    public boolean existsById(Long aLong) {
-        return false;
+    public boolean existsById(Long id) {
+        return usuarioAdminRepository.existsById(id);
     }
 
     @Override
@@ -38,36 +38,37 @@ public class UsuarioAdminService implements UsuarioAdminRepository {
 
     @Override
     public Iterable<UsuarioAdmin> findAllById(Iterable<Long> longs) {
-        return null;
+        return usuarioAdminRepository.findAllById(longs);
     }
 
     @Override
     public long count() {
-        return 0;
+        return usuarioAdminRepository.count();
     }
 
     @Override
-    public void deleteById(Long aLong) {
-
+    public void deleteById(Long id) {
+        usuarioAdminRepository.deleteById(id);
     }
 
     @Override
     public void delete(UsuarioAdmin entity) {
-
+        usuarioAdminRepository.delete(entity);
     }
 
     @Override
     public void deleteAllById(Iterable<? extends Long> longs) {
-
+        usuarioAdminRepository.deleteAllById(longs);
     }
 
     @Override
     public void deleteAll(Iterable<? extends UsuarioAdmin> entities) {
-
+        usuarioAdminRepository.deleteAll(entities);
     }
 
     @Override
     public void deleteAll() {
-
+        usuarioAdminRepository.deleteAll();
     }
 }
+

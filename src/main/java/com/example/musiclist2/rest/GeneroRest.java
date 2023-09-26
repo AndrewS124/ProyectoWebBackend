@@ -1,39 +1,68 @@
+
 package com.example.musiclist2.rest;
 
+import com.example.musiclist2.modelo.Cancion;
 import com.example.musiclist2.modelo.Genero;
 import com.example.musiclist2.service.GeneroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/Genero/")
 public class GeneroRest {
+
     @Autowired
     private GeneroService generoService;
+
+
+    @PostMapping
+    public ResponseEntity<Genero> createCancion(@RequestBody Genero genero) {
+        Genero nuevoGenero = generoService.save(genero);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoGenero);
+    }
+
+
     @GetMapping
-    private ResponseEntity<Iterable<Genero>> getAllGeneros() {
+    private ResponseEntity <List<Genero>> getAllGeneros() {
+        Iterable<Genero> generos = generoService.findAll();
+        List<Genero> generoList = new ArrayList<>();
 
-        List<Genero> generosList = new ArrayList<>();
+        generos.forEach(generoList::add);
 
-        try{
-            Iterable<Genero> generos = generoService.findAll();
+        return ResponseEntity.ok(generoList);
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Genero> updateCancion(@PathVariable Long id, @RequestBody Genero genero) {
+        Optional<Genero> generoExistente = generoService.findById(id);
 
-            // Convierte el Iterable en una List
-            generos.forEach(generosList::add);
-
-        }catch (Exception e ){
-            e.printStackTrace();
+        if (!generoExistente.isPresent()) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(generosList);
 
+        genero.setId(id); // Aseguramos que la ID de la canción sea la misma que la proporcionada en la URL.
+        Genero generoActualizado = generoService.save(genero);
 
+        return ResponseEntity.ok(generoActualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteGenero(@PathVariable Long id) {
+        Optional<Genero> generoExistente = generoService.findById(id);
+
+        if (generoExistente.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        generoService.delete(generoExistente.get());
+        return ResponseEntity.noContent().build();
     }
 
 }
+

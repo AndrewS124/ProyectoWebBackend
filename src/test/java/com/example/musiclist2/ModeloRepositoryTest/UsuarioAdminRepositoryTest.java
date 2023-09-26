@@ -19,77 +19,85 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class UsuarioAdminRepositoryTest {
 
-
     @Autowired
     private UsuarioAdminRepository usuarioAdminRepository;
 
     @Test
     public void CreateUsuarioAdmin() {
-        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("Nombre", "correo@example.com", "contraseña", true);
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("AdminPrueba", "admin@example.com", "password", true);
         usuarioAdminRepository.save(usuarioAdmin);
 
-        UsuarioAdmin usuarioLeido = usuarioAdminRepository.findById(usuarioAdmin.getId()).orElse(null);
-        assertNotNull(usuarioLeido);
-        assertEquals("Nombre", usuarioLeido.getNombre());
-        assertEquals("correo@example.com", usuarioLeido.getCorreo());
+        assertNotNull(usuarioAdmin.getId());
+
+        // Verifica que el usuarioAdmin se haya guardado correctamente
+        UsuarioAdmin savedUsuarioAdmin = usuarioAdminRepository.findById(usuarioAdmin.getId()).orElse(null);
+        assertNotNull(savedUsuarioAdmin);
+        assertEquals("AdminPrueba", savedUsuarioAdmin.getNombre());
+        assertEquals("admin@example.com", savedUsuarioAdmin.getCorreo());
+        assertEquals("password", savedUsuarioAdmin.getContraseña());
+        assertTrue(savedUsuarioAdmin.isAutenticacion());
+        assertEquals("Admin", savedUsuarioAdmin.getTipo());
     }
 
     @Test
-    public void ReadUsuarioAdmin(){
+    public void ReadUsuarioAdmin() {
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("AdminPrueba", "admin@example.com", "password", true);
+        usuarioAdminRepository.save(usuarioAdmin);
 
-        Iterable<UsuarioAdmin> usuarioAdmins = usuarioAdminRepository.findAll();
-
-        int cont = 0;
-        for(UsuarioAdmin ua : usuarioAdmins)
-            cont++;
-        assertTrue(cont >= 1);
-
-
+        // Verifica que el usuarioAdmin se pueda encontrar por su ID
+        UsuarioAdmin foundUsuarioAdmin = usuarioAdminRepository.findById(usuarioAdmin.getId()).orElse(null);
+        assertNotNull(foundUsuarioAdmin);
+        assertEquals("AdminPrueba", foundUsuarioAdmin.getNombre());
+        assertEquals("admin@example.com", foundUsuarioAdmin.getCorreo());
+        assertEquals("password", foundUsuarioAdmin.getContraseña());
+        assertTrue(foundUsuarioAdmin.isAutenticacion());
+        assertEquals("Admin", foundUsuarioAdmin.getTipo());
     }
 
     @Test
-    public void UpdateUsuarioAdmin(){
+    public void UpdateUsuarioAdmin() {
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("AdminAct", "adminact@example.com", "oldpassword", false);
+        usuarioAdminRepository.save(usuarioAdmin);
 
-        Iterable<UsuarioAdmin> usuarioAdmins = usuarioAdminRepository.findAll();
+        // Actualiza el usuarioAdmin
+        usuarioAdmin.setNombre("NuevoAdmin");
+        usuarioAdmin.setCorreo("nuevoadmin@example.com");
+        usuarioAdmin.setContraseña("newpassword");
+        usuarioAdmin.setAutenticacion(true);
+        usuarioAdminRepository.save(usuarioAdmin);
 
-        for(UsuarioAdmin ua : usuarioAdmins){
-            if("Nombre".equals(ua.getNombre())){
-                ua.setNombre("Andres");
-                usuarioAdminRepository.save(ua);
-
-                UsuarioAdmin updateUsuarioAdmin =  usuarioAdminRepository.findById(ua.getId()).orElse(null);
-                assert updateUsuarioAdmin != null;
-                assertNotNull(updateUsuarioAdmin);
-                assertEquals("Andres", updateUsuarioAdmin.getNombre());
-
-            }
-        }
-
-
+        // Verifica que el usuarioAdmin se haya actualizado correctamente
+        UsuarioAdmin updatedUsuarioAdmin = usuarioAdminRepository.findById(usuarioAdmin.getId()).orElse(null);
+        assertNotNull(updatedUsuarioAdmin);
+        assertEquals("NuevoAdmin", updatedUsuarioAdmin.getNombre());
+        assertEquals("nuevoadmin@example.com", updatedUsuarioAdmin.getCorreo());
+        assertEquals("newpassword", updatedUsuarioAdmin.getContraseña());
+        assertTrue(updatedUsuarioAdmin.isAutenticacion());
+        assertEquals("Admin", updatedUsuarioAdmin.getTipo());
     }
 
     @Test
-    public void DeleteUsuarioAdmin(){
-
-        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("Nombre", "correo@example.com", "contraseña", true);
+    public void DeleteUsuarioAdmin() {
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("DelAdmin", "deladmin@example.com", "password", true);
         usuarioAdminRepository.save(usuarioAdmin);
 
         usuarioAdminRepository.deleteById(usuarioAdmin.getId());
 
-        // Intentar encontrar el usuario administrador eliminado en el repositorio
-        Optional<UsuarioAdmin> deletedUsuarioAdminOptional = usuarioAdminRepository.findById(usuarioAdmin.getId());
-        assertFalse(deletedUsuarioAdminOptional.isPresent());
+        // Verifica que el usuarioAdmin haya sido eliminado correctamente
+        UsuarioAdmin deletedUsuarioAdmin = usuarioAdminRepository.findById(usuarioAdmin.getId()).orElse(null);
+        assertNull(deletedUsuarioAdmin);
     }
 
 
     @Test
-    public void CreateUsuarioAdminConDatosInvalidos() {
+    public void CrearUsuarioAdminInvalido() {
         UsuarioAdmin usuarioAdmin = new UsuarioAdmin();
 
-        // Usamos assertThrows para verificar que se genera una excepción de restricción de integridad de datos
         assertThrows(ConstraintViolationException.class, () -> {
             usuarioAdminRepository.save(usuarioAdmin);
         });
     }
 
+
 }
+

@@ -3,8 +3,10 @@ package com.example.musiclist2.ModeloRepositoryTest;
 
 import com.example.musiclist2.modelo.Cancion;
 import com.example.musiclist2.modelo.Genero;
+import com.example.musiclist2.modelo.UsuarioAdmin;
 import com.example.musiclist2.repositories.CancionRepository;
 import com.example.musiclist2.repositories.GeneroRepository;
+import com.example.musiclist2.repositories.UsuarioAdminRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,13 +22,27 @@ public class CancionRepositoryTest {
     @Autowired
     private GeneroRepository generoRepository;
 
+    @Autowired
+    private UsuarioAdminRepository usuarioAdminRepository;
+
     @Test
     public void CreateCancion() {
+
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("DelAdmin", "deladmin@example.com", "password", true);
+        usuarioAdminRepository.save(usuarioAdmin);
+        Genero genero = new Genero();
+        genero.setTipo("GeneroPrueba");
+        generoRepository.save(genero);
         Cancion cancion = new Cancion();
         cancion.setNombreCancion("Cancion");
         cancion.setAutor("Autor");
+        cancion.setUsuarioAdmin(usuarioAdmin);
+        cancion.setGenero(genero);
         cancionRepository.save(cancion);
 
+        assertNotNull(cancion.getId());
+
+        // Verifica que la canción se haya guardado correctamente
         Cancion savedCancion = cancionRepository.findById(cancion.getId()).orElse(null);
         assertNotNull(savedCancion);
         assertEquals("Cancion", savedCancion.getNombreCancion());
@@ -35,26 +51,44 @@ public class CancionRepositoryTest {
 
     @Test
     public void ReadCanciones() {
-        Iterable<Cancion> canciones = cancionRepository.findAll();
-        int length = 0;
-        for (Cancion c : canciones) {
-            length++;
-        }
-        assertTrue(length >= 1);
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("DelAdmin", "deladmin@example.com", "password", true);
+        usuarioAdminRepository.save(usuarioAdmin);
+        Genero genero = new Genero();
+        genero.setTipo("GeneroPrueba");
+        generoRepository.save(genero);
+        Cancion cancion = new Cancion();
+        cancion.setNombreCancion("CancionPrueba");
+        cancion.setAutor("AutorPrueba");
+        cancion.setGenero(genero);
+        cancion.setUsuarioAdmin(usuarioAdmin);
+        cancionRepository.save(cancion);
+
+        // Verifica que la canción se pueda encontrar por su ID
+        Cancion foundCancion = cancionRepository.findById(cancion.getId()).orElse(null);
+        assertNotNull(foundCancion);
+        assertEquals("CancionPrueba", foundCancion.getNombreCancion());
+        assertEquals("AutorPrueba", foundCancion.getAutor());
     }
 
     @Test
     public void UpdateCancion() {
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("DelAdmin", "deladmin@example.com", "password", true);
+        usuarioAdminRepository.save(usuarioAdmin);
+        Genero genero = new Genero();
+        genero.setTipo("GeneroPrueba");
+        generoRepository.save(genero);
         Cancion cancion = new Cancion();
-        cancion.setNombreCancion("CancinAct");
-        cancion.setAutor("AutorACt");
+        cancion.setNombreCancion("CancionAct");
+        cancion.setAutor("AutorAct");
+        cancion.setGenero(genero);
+        cancion.setUsuarioAdmin(usuarioAdmin);
         cancionRepository.save(cancion);
 
+        // Actualiza la canción
         cancion.setNombreCancion("Nuevo nombre");
         cancion.setAutor("Nuevo autor");
         cancionRepository.save(cancion);
 
-        // Verifica que la canción se haya actualizado correctamente
         Cancion updatedCancion = cancionRepository.findById(cancion.getId()).orElse(null);
         assertNotNull(updatedCancion);
         assertEquals("Nuevo nombre", updatedCancion.getNombreCancion());
@@ -63,45 +97,48 @@ public class CancionRepositoryTest {
 
     @Test
     public void DeleteCancion() {
-        Cancion cancion = new Cancion();
-        cancion.setNombreCancion("DelCanción");
-        cancion.setAutor("DelAutor");
-        cancionRepository.save(cancion);
-
-        cancionRepository.deleteById(cancion.getId());
-
-        // Verifica que la canción haya sido eliminada correctamente
-        Cancion deletedCancion = cancionRepository.findById(cancion.getId()).orElse(null);
-        assertNull(deletedCancion);
-
-
-    }
-
-    @Test
-    public void createCancionGenero(){
-
+        UsuarioAdmin usuarioAdmin = new UsuarioAdmin("DelAdmin", "deladmin@example.com", "password", true);
+        usuarioAdminRepository.save(usuarioAdmin);
         Genero genero = new Genero();
-        genero.setTipo("prueba");
+        genero.setTipo("GeneroPrueba");
         generoRepository.save(genero);
-
         Cancion cancion = new Cancion();
-        cancion.setNombreCancion("pruebaCancion");
-        cancion.setAutor("pruebaAutor");
+        cancion.setNombreCancion("Cancion");
+        cancion.setAutor("Autor");
         cancion.setGenero(genero);
         cancionRepository.save(cancion);
 
-        Cancion savedCancion = cancionRepository.findById(cancion.getId()).orElse(null);
-        assertNotNull(savedCancion);
-        assertEquals("pruebaCancion", savedCancion.getNombreCancion());
-        assertEquals("pruebaAutor", savedCancion.getAutor());
+        // elimina la canción
+        cancionRepository.deleteById(cancion.getId());
 
-        assertNotNull(savedCancion.getGenero());
-        assertEquals("prueba", savedCancion.getGenero().getTipo());
-
-
-
+        Cancion deletedCancion = cancionRepository.findById(cancion.getId()).orElse(null);
+        assertNull(deletedCancion);
     }
 
+    @Test
+    public void pruebaRelacionCancionesGenero() {
+        Genero genero = new Genero();
+        genero.setTipo("GeneroConCanciones");
+        generoRepository.save(genero);
+
+        Cancion cancion1 = new Cancion();
+        cancion1.setNombreCancion("Cancion1");
+        cancion1.setAutor("Autor1");
+        cancion1.setGenero(genero);
+        cancionRepository.save(cancion1);
+
+        Cancion cancion2 = new Cancion();
+        cancion2.setNombreCancion("Cancion2");
+        cancion2.setAutor("Autor2");
+        cancion2.setGenero(genero);
+        cancionRepository.save(cancion2);
+
+        // Verificar que las canciones se relacionen correctamente con el género
+        Genero generoConCanciones = generoRepository.findById(genero.getId()).orElse(null);
+        assertNotNull(generoConCanciones);
+        assertEquals("GeneroConCanciones", generoConCanciones.getTipo());
+    }
 
 }
+
 

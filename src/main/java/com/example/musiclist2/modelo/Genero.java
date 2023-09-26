@@ -16,9 +16,6 @@ public class Genero {
     @ManyToOne
     private UsuarioAdmin usuarioAdmin;
 
-    @OneToMany(mappedBy = "genero", fetch = FetchType.EAGER)
-    private List<Cancion> canciones;
-
     public Long getId() {
         return id;
     }
@@ -35,11 +32,5 @@ public class Genero {
         this.tipo = tipo;
     }
 
-    public List<Cancion> getCanciones() {
-        return canciones;
-    }
 
-    public void setCanciones(List<Cancion> canciones) {
-        this.canciones = canciones;
-    }
 }

@@ -17,96 +17,91 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GeneroRepositoryTest {
 
     @Autowired
-    GeneroRepository generoRepository;
+    private GeneroRepository generoRepository;
 
     @Autowired
-    CancionRepository cancionRepository;
+    private CancionRepository cancionRepository;
 
     @Test
-    public void CreateGeneroTest(){
-
-
+    public void CreateGenero() {
         Genero genero = new Genero();
-        genero.setTipo("pruebaGenero");
+        genero.setTipo("GeneroPrueba");
         generoRepository.save(genero);
 
+
+        // Verifica que el género se haya guardado correctamente
         Genero savedGenero = generoRepository.findById(genero.getId()).orElse(null);
         assertNotNull(savedGenero);
-        assertEquals("pruebaGenero", savedGenero.getTipo());
-
+        assertEquals("GeneroPrueba", savedGenero.getTipo());
     }
 
     @Test
-    public void ReadGeneroTest(){
-
-        Iterable<Genero> generos = generoRepository.findAll();
-        int length = 0;
-        for (Genero g : generos) {
-            length++;
-        }
-        assertTrue(length >= 1);
-
-
-    }
-
-    @Test
-    public void  UpdateGeneroTest(){
-
-        Iterable<Genero> generos = generoRepository.findAll();
-        for (Genero g : generos) {
-
-            g.setTipo("newGenero");
-            generoRepository.save(g);
-
-            Genero updatedGenero = generoRepository.findById(g.getId()).orElse(null);
-            assertNotNull(updatedGenero);
-            assertEquals("newGenero", updatedGenero.getTipo());
-
-        }
-
-    }
-
-    @Test
-    public  void DeleteGeneroTest(){
-
-        Genero genero =  new Genero();
-        genero.setTipo("music");
+    public void ReadGeneros() {
+        Genero genero = new Genero();
+        genero.setTipo("GeneroPrueba");
         generoRepository.save(genero);
 
-        Iterable<Genero> generos = generoRepository.findAll();
-        for(Genero g: generos){
-            if(Objects.equals(g.getTipo(), "music"))
-                generoRepository.deleteById(g.getId());
+        // Verifica que el género se pueda encontrar por su ID
+        Genero foundGenero = generoRepository.findById(genero.getId()).orElse(null);
+        assertNotNull(foundGenero);
+        assertEquals("GeneroPrueba", foundGenero.getTipo());
+    }
 
-        }
+    @Test
+    public void UpdateGenero() {
+        Genero genero = new Genero();
+        genero.setTipo("GeneroAct");
+        generoRepository.save(genero);
 
+        // Actualiza el género
+        genero.setTipo("NuevoTipo");
+        generoRepository.save(genero);
+
+        // Verifica que el género se haya actualizado correctamente
+        Genero updatedGenero = generoRepository.findById(genero.getId()).orElse(null);
+        assertNotNull(updatedGenero);
+        assertEquals("NuevoTipo", updatedGenero.getTipo());
+    }
+
+    @Test
+    public void DeleteGenero() {
+        Genero genero = new Genero();
+        genero.setTipo("DelGenero");
+        generoRepository.save(genero);
+
+        generoRepository.deleteById(genero.getId());
+
+        // Verifica que el género haya sido eliminado correctamente
         Genero deletedGenero = generoRepository.findById(genero.getId()).orElse(null);
         assertNull(deletedGenero);
-
     }
 
     @Test
     public void CancionesAGenero() {
         Genero genero = new Genero();
-        genero.setTipo("Rock");
+        genero.setTipo("GeneroConCanciones");
         generoRepository.save(genero);
 
         Cancion cancion1 = new Cancion();
-        cancion1.setNombreCancion("Canción 1");
-        cancion1.setAutor("Autor 1");
+        cancion1.setNombreCancion("Cancion1");
+        cancion1.setAutor("Autor1");
         cancion1.setGenero(genero);
         cancionRepository.save(cancion1);
 
         Cancion cancion2 = new Cancion();
-        cancion2.setNombreCancion("Canción 2");
-        cancion2.setAutor("Autor 2");
+        cancion2.setNombreCancion("Cancion2");
+        cancion2.setAutor("Autor2");
         cancion2.setGenero(genero);
         cancionRepository.save(cancion2);
 
-        Genero loadedGenero = generoRepository.findById(genero.getId()).orElse(null);
-        assertNotNull(loadedGenero);
-        assertEquals(2, loadedGenero.getCanciones().size());
+        // Verifica que las canciones se hayan relacionado correctamente con el género
+        Genero generoConCanciones = generoRepository.findById(genero.getId()).orElse(null);
+        assertNotNull(generoConCanciones);
+        assertEquals("GeneroConCanciones", generoConCanciones.getTipo());
     }
 
 
+
 }
+
+

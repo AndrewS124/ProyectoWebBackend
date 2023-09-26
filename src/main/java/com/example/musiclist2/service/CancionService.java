@@ -1,3 +1,4 @@
+
 package com.example.musiclist2.service;
 
 import com.example.musiclist2.modelo.Cancion;
@@ -14,22 +15,22 @@ public class CancionService implements CancionRepository {
 
     @Override
     public <S extends Cancion> S save(S entity) {
-        return null;
+        return cancionRepository.save(entity);
     }
 
     @Override
     public <S extends Cancion> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
+        return cancionRepository.saveAll(entities);
     }
 
     @Override
-    public Optional<Cancion> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<Cancion> findById(Long id) {
+        return cancionRepository.findById(id);
     }
 
     @Override
-    public boolean existsById(Long aLong) {
-        return false;
+    public boolean existsById(Long id) {
+        return cancionRepository.existsById(id);
     }
 
     @Override
@@ -39,36 +40,37 @@ public class CancionService implements CancionRepository {
 
     @Override
     public Iterable<Cancion> findAllById(Iterable<Long> longs) {
-        return null;
+        return cancionRepository.findAllById(longs);
     }
 
     @Override
     public long count() {
-        return 0;
+        return cancionRepository.count();
     }
 
     @Override
-    public void deleteById(Long aLong) {
-
+    public void deleteById(Long id) {
+        cancionRepository.deleteById(id);
     }
 
     @Override
     public void delete(Cancion entity) {
-
+        cancionRepository.delete(entity);
     }
 
     @Override
     public void deleteAllById(Iterable<? extends Long> longs) {
-
+        cancionRepository.deleteAllById(longs);
     }
 
     @Override
     public void deleteAll(Iterable<? extends Cancion> entities) {
-
+        cancionRepository.deleteAll(entities);
     }
 
     @Override
     public void deleteAll() {
-
+        cancionRepository.deleteAll();
     }
 }
+

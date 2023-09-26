@@ -14,9 +14,11 @@ public class Cancion {
 	private String autor;
 
 	@ManyToOne
+	@JoinColumn (name="id_usuarioadmin")
 	private UsuarioAdmin usuarioAdmin;
 
 	@ManyToOne
+	@JoinColumn (name="id_genero")
 	private Genero genero;
 
 	public Long getId() {

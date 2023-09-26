@@ -1,3 +1,4 @@
+
 package com.example.musiclist2.service;
 
 
@@ -14,22 +15,22 @@ public class GeneroService implements GeneroRepository {
     GeneroRepository generoRepository;
     @Override
     public <S extends Genero> S save(S entity) {
-        return null;
+        return generoRepository.save(entity);
     }
 
     @Override
     public <S extends Genero> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
+        return generoRepository.saveAll(entities);
     }
 
     @Override
-    public Optional<Genero> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<Genero> findById(Long id) {
+        return generoRepository.findById(id);
     }
 
     @Override
-    public boolean existsById(Long aLong) {
-        return false;
+    public boolean existsById(Long id) {
+        return generoRepository.existsById(id);
     }
 
     @Override
@@ -39,36 +40,37 @@ public class GeneroService implements GeneroRepository {
 
     @Override
     public Iterable<Genero> findAllById(Iterable<Long> longs) {
-        return null;
+        return generoRepository.findAllById(longs);
     }
 
     @Override
     public long count() {
-        return 0;
+        return generoRepository.count();
     }
 
     @Override
-    public void deleteById(Long aLong) {
-
+    public void deleteById(Long id) {
+        generoRepository.deleteById(id);
     }
 
     @Override
     public void delete(Genero entity) {
-
+        generoRepository.delete(entity);
     }
 
     @Override
     public void deleteAllById(Iterable<? extends Long> longs) {
-
+        generoRepository.deleteAllById(longs);
     }
 
     @Override
     public void deleteAll(Iterable<? extends Genero> entities) {
-
+        generoRepository.deleteAll(entities);
     }
 
     @Override
     public void deleteAll() {
-
+        generoRepository.deleteAll();
     }
 }
+
