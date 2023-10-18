@@ -15,6 +15,12 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<!-- Configura las propiedades de SonarQube -->
+		<sonar.host.url>http://app.inphotech.co:9000</sonar.host.url>
+		<sonar.login>squ_73812655cd86a5a10942eac59509a8c9be2eee8b</sonar.login>
+		<sonar.projectKey>musiclisttiburones</sonar.projectKey>
+		<sonar.projectName>{musiclist_tiburones}</sonar.projectName>
+		<sonar.projectVersion>1.0</sonar.projectVersion>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -62,6 +68,13 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.7.0.1746</version>
+			</plugin>
+
 		</plugins>
 	</build>
 
