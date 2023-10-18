@@ -1,4 +1,3 @@
-
 package com.example.musiclist2.rest;
 
 import com.example.musiclist2.modelo.Cancion;
@@ -26,7 +25,7 @@ public class CancionRest {
 
 
     @GetMapping
-    private ResponseEntity <List<Cancion>> getAllCanciones() {
+    private ResponseEntity<List<Cancion>> getAllCanciones() {
         Iterable<Cancion> canciones = cancionService.findAll();
         List<Cancion> cancionesList = new ArrayList<>();
 
@@ -60,8 +59,5 @@ public class CancionRest {
         cancionService.delete(cancionExistente.get());
         return ResponseEntity.noContent().build();
     }
-
-
-
 }
 
