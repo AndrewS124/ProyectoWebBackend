@@ -3,6 +3,7 @@ package com.example.musiclist2.rest;
 
 import com.example.musiclist2.modelo.Cancion;
 import com.example.musiclist2.modelo.Genero;
+import com.example.musiclist2.service.CancionService;
 import com.example.musiclist2.service.GeneroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class GeneroRest {
 
     @Autowired
     private GeneroService generoService;
+
 
 
     @PostMapping
@@ -64,5 +66,12 @@ public class GeneroRest {
         return ResponseEntity.noContent().build();
     }
 
+    /*
+    @GetMapping("/generos-con-canciones")
+    public ResponseEntity<List<Genero>> getGenerosConCanciones() {
+        List<Genero> generosConCanciones = generoService.getGenerosConCanciones();
+        return ResponseEntity.ok(generosConCanciones);
+    }
+     */
 }
 
