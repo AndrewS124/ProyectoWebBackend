@@ -7,6 +7,7 @@ import com.example.musiclist2.repositories.GeneroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,5 +73,12 @@ public class GeneroService implements GeneroRepository {
     public void deleteAll() {
         generoRepository.deleteAll();
     }
+
+
+    public List<Genero> getGenerosConCanciones() {
+        return (List<Genero>) generoRepository.findAll(); // Esto recupera todos los géneros con sus canciones asociadas debido a la relación bidireccional.
+    }
+
+
 }
 
