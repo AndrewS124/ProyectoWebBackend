@@ -1,3 +1,4 @@
+/*
 package com.example.musiclist2.jwt;
 
 import org.springframework.context.annotation.Configuration;
@@ -21,4 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }
+
+
+
+ */
 
