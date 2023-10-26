@@ -1,4 +1,8 @@
 /*
+<<<<<<< HEAD
+=======
+
+>>>>>>> efc5e56fe123792de05c875cb66d723342f6539b
 package com.example.musiclist2.jwt;
 
 import io.jsonwebtoken.Claims;
@@ -51,4 +55,5 @@ public class JwtFilter extends OncePerRequestFilter {
 }
 
 
+<<<<<<< HEAD
 */

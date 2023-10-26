@@ -1,3 +1,4 @@
+/*
 package com.example.musiclist2.jwt;
 
 //import io.jsonwebtoken.JwtParser;
@@ -20,5 +21,5 @@ public class JwtConfig {
     @Bean
     public JwtGenerator jwtGenerator() {
         return new JwtGenerator(secret);
+
     }*/
-}

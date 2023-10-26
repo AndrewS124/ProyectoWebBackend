@@ -24,4 +24,5 @@ public class JwtGenerator {
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
+<<<<<<< HEAD
 }*/
