@@ -1,3 +1,4 @@
+/*
 package com.example.musiclist2.jwt;
 
 import io.jsonwebtoken.Jwts;
@@ -23,4 +24,4 @@ public class JwtGenerator {
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
-}
+}*/

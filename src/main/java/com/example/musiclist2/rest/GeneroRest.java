@@ -20,7 +20,7 @@ public class GeneroRest {
     @Autowired
     private GeneroService generoService;
 
-
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Genero> createCancion(@RequestBody Genero genero) {
         Genero nuevoGenero = generoService.save(genero);
@@ -28,6 +28,7 @@ public class GeneroRest {
     }
 
 
+    @CrossOrigin
     @GetMapping
     private ResponseEntity <List<Genero>> getAllGeneros() {
         Iterable<Genero> generos = generoService.findAll();
@@ -38,6 +39,7 @@ public class GeneroRest {
         return ResponseEntity.ok(generoList);
     }
 
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Genero> updateCancion(@PathVariable Long id, @RequestBody Genero genero) {
         Optional<Genero> generoExistente = generoService.findById(id);
@@ -52,6 +54,7 @@ public class GeneroRest {
         return ResponseEntity.ok(generoActualizado);
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGenero(@PathVariable Long id) {
         Optional<Genero> generoExistente = generoService.findById(id);

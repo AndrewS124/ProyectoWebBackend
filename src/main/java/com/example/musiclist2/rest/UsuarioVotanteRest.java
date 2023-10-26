@@ -18,12 +18,14 @@ public class UsuarioVotanteRest {
     @Autowired
     private UsuarioVotanteService usuarioVotanteService;
 
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<UsuarioVotante> createUsuario(@RequestBody UsuarioVotante usuarioVotante) {
         UsuarioVotante nuevoUsuarioVotante = usuarioVotanteService.save(usuarioVotante);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuarioVotante);
     }
 
+    @CrossOrigin
     @GetMapping
     private ResponseEntity<Iterable<UsuarioVotante>> getAllUsuarios() {
         Iterable<UsuarioVotante> usuariosVotantes = usuarioVotanteService.findAll();
@@ -34,6 +36,8 @@ public class UsuarioVotanteRest {
         return ResponseEntity.ok(usuariosVotantesList);
     }
 
+
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioVotante> updateUsuario(@PathVariable Long id, @RequestBody UsuarioVotante usuarioVotante) {
         Optional<UsuarioVotante> usuarioVotanteExistente = usuarioVotanteService.findById(id);
@@ -48,6 +52,7 @@ public class UsuarioVotanteRest {
         return ResponseEntity.ok(usuarioAdminActualizado);
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuarioVotante(@PathVariable Long id) {
         Optional<UsuarioVotante> usuarioVotanteExistente = usuarioVotanteService.findById(id);
