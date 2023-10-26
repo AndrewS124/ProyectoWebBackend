@@ -8,5 +8,5 @@ import java.util.List;
 public interface GeneroRepository extends CrudRepository<Genero, Long> {
 
 
-    List<Genero> getGenerosConCanciones();
+    //List<Genero> getGenerosConCanciones();
 }

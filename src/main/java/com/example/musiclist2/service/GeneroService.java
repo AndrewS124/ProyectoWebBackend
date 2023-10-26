@@ -75,9 +75,9 @@ public class GeneroService implements GeneroRepository {
     }
 
 
-    public List<Genero> getGenerosConCanciones() {
+   /* public List<Genero> getGenerosConCanciones() {
         return (List<Genero>) generoRepository.findAll(); // Esto recupera todos los géneros con sus canciones asociadas debido a la relación bidireccional.
-    }
+    }*/
 
 
 }
