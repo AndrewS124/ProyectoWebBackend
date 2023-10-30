@@ -68,12 +68,19 @@ public class GeneroRest {
         return ResponseEntity.noContent().build();
     }
 
-    /*
-    @GetMapping("/generos-con-canciones")
-    public ResponseEntity<List<Genero>> getGenerosConCanciones() {
-        List<Genero> generosConCanciones = generoService.getGenerosConCanciones();
-        return ResponseEntity.ok(generosConCanciones);
+    @GetMapping("/{id}/canciones")
+    public ResponseEntity<List<Cancion>> getCancionesPorGenero(@PathVariable Long id) {
+        Optional<Genero> generoOptional = generoService.findById(id);
+
+        if (!generoOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Genero genero = generoOptional.get();
+        List<Cancion> canciones = genero.getCanciones(); // Obtiene la lista de canciones asociadas al género
+
+        return ResponseEntity.ok(canciones);
     }
-     */
+
 }
 

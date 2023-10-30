@@ -1,4 +1,6 @@
 package com.example.musiclist2.modelo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -13,8 +15,16 @@ public class Genero {
 
     private String tipo;
 
+
+    @OneToMany(mappedBy = "genero") // Establece la relación uno a muchos con Cancion
+    @JsonManagedReference
+    private List<Cancion> canciones;
+
     @ManyToOne
     private UsuarioAdmin usuarioAdmin;
+
+    public Genero() {
+    }
 
     public Long getId() {
         return id;
@@ -30,6 +40,10 @@ public class Genero {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public List<Cancion> getCanciones() {
+        return canciones;
     }
 
 

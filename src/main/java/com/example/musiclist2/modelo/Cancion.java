@@ -1,4 +1,6 @@
 package com.example.musiclist2.modelo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 
@@ -18,6 +20,7 @@ public class Cancion {
 	private UsuarioAdmin usuarioAdmin;
 
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn (name="id_genero")
 	private Genero genero;
 
