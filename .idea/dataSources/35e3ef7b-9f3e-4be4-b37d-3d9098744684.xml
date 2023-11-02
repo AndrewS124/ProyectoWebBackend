@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="Clever Cloud">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.45">
-    <root id="1">
-      <DefaultCasing>exact</DefaultCasing>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <Grants>bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||ALTER|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||ALTER ROUTINE|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||CREATE|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||CREATE ROUTINE|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||CREATE TEMPORARY TABLES|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||CREATE VIEW|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||DELETE|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||DROP|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||EVENT|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||EXECUTE|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||INDEX|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||INSERT|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||LOCK TABLES|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||REFERENCES|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||SELECT|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||SHOW VIEW|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||TRIGGER|G
-bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||UPDATE|G</Grants>
-      <ServerVersion>8.0.15</ServerVersion>
-    </root>
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.49">
+    <root id="1"/>
     <collation id="2" parent="1" name="armscii8_general_ci">
       <Charset>armscii8</Charset>
       <DefaultForCharset>1</DefaultForCharset>
