@@ -69,7 +69,7 @@ public class GeneroRest {
         generoService.deleteGenero(id);
         return ResponseEntity.noContent().build();
     }
-
+    @CrossOrigin
     @GetMapping("/{id}/canciones")
     public ResponseEntity<List<Cancion>> getCancionesPorGenero(@PathVariable Long id) {
         Optional<GeneroDTO> generoOptional = generoService.findById(id);
