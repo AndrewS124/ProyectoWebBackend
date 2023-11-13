@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.musiclist2.Musiclist2ApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 29.001 s - in com.example.musiclist2.Musiclist2ApplicationTests
