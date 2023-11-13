@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
@@ -21,4 +22,29 @@
       <module name="musiclist2" options="-parameters" />
     </option>
   </component>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ProyectoWebBackend" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="musicaListWeb" target="17" />
+      <module name="musiclist2" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ProyectoWebBackend" options="-parameters" />
+      <module name="musicaListWeb" options="-parameters" />
+      <module name="musiclist2" options="-parameters" />
+    </option>
+  </component>
+>>>>>>> 4b536887f4596e5e8beee34f135d93d87dab3437
 </project>
