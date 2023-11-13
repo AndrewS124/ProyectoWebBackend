@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> ac1dc0fde5fdf18c2bb71f14c00e15c361f4f2c7
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="Clever Cloud">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.49">
@@ -25,6 +29,15 @@ bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||TRIGGER|G
 bhla1dknvdkwmb2zxta2|schema||uolna0cqkkae946l||UPDATE|G</Grants>
       <ServerVersion>8.0.15</ServerVersion>
     </root>
+<<<<<<< HEAD
+=======
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Clever Cloud">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.49">
+    <root id="1"/>
+>>>>>>> 4b536887f4596e5e8beee34f135d93d87dab3437
+>>>>>>> ac1dc0fde5fdf18c2bb71f14c00e15c361f4f2c7
     <collation id="2" parent="1" name="armscii8_general_ci">
       <Charset>armscii8</Charset>
       <DefaultForCharset>1</DefaultForCharset>
