@@ -11,22 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
 @RestController
-
+@CrossOrigin(origins = "*")
 @RequestMapping("/Cancion/")
 public class CancionRest {
     @Autowired
     private CancionService cancionService;
 
-
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Cancion> createCancion(@RequestBody Cancion cancion) {
         Cancion nuevaCancion = cancionService.save(cancion);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaCancion);
     }
 
-
+    @CrossOrigin
     @GetMapping
     private ResponseEntity<List<Cancion>> getAllCanciones() {
         Iterable<Cancion> canciones = cancionService.findAll();
@@ -37,7 +36,7 @@ public class CancionRest {
         return ResponseEntity.ok(cancionesList);
     }
 
-
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Cancion> updateCancion(@PathVariable Long id, @RequestBody Cancion cancion) {
         Optional<Cancion> cancionExistente = cancionService.findById(id);
@@ -53,6 +52,8 @@ public class CancionRest {
     }
 
 
+
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCancion(@PathVariable Long id) {
         Optional<Cancion> cancionExistente = cancionService.findById(id);
@@ -64,6 +65,7 @@ public class CancionRest {
         cancionService.delete(cancionExistente.get());
         return ResponseEntity.noContent().build();
     }
+
 
 
 }

@@ -1,53 +1,28 @@
+/*
 package com.example.musiclist2.jwt;
 
-import java.util.Date;
-
-import com.example.musiclist2.SecurityConstants;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
-
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
+import java.util.Date;
+import java.util.List;
 
-@Component
 public class JwtGenerator {
 
-    public String generateToken(Authentication auth) {
-        String username = auth.getName();
-        Date currentDate = new Date();
-        Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION_TIME);
+    private final String secret;
 
-        String token = Jwts.builder()
+    public JwtGenerator(String secret) {
+        this.secret = secret;
+    }
+
+    public String generateToken(String username, List<String> roles) {
+        Date expirationDate = new Date(System.currentTimeMillis() + 3600 * 1000); // 1 hour
+        return Jwts.builder()
                 .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(expireDate)
-                .signWith(SignatureAlgorithm.HS256, SecurityConstants.SECRET_KEY)
+                .claim("roles", roles)
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
-
-        return token;
     }
-
-    public String getUsername(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(SecurityConstants.SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return claims.getSubject();
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(SecurityConstants.SECRET_KEY).parseClaimsJws(token);
-            return true;
-
-        } catch (Exception e) {
-            throw new AuthenticationCredentialsNotFoundException("Invalid or expired token");
-
-        }
-    }
-
-}
+<<<<<<< HEAD
+}*/
