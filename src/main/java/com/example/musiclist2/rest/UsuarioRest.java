@@ -11,21 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/Usuario/")
 public class UsuarioRest {
+
+
     @Autowired
     private UsuarioService usuarioService;
 
 
-    @CrossOrigin
-    @PostMapping
-    public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
-        Usuario nuevoUsuario = usuarioService.save(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
-    }
 
-    @CrossOrigin
     @GetMapping
     private ResponseEntity<Iterable<Usuario>> getAllUsuarios() {
         Iterable<Usuario> usuarios = usuarioService.findAll();
@@ -36,7 +32,7 @@ public class UsuarioRest {
         return ResponseEntity.ok(usuariosList);
     }
 
-    @CrossOrigin
+
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
         Optional<Usuario> usuarioExistente = usuarioService.findById(id);
@@ -51,7 +47,7 @@ public class UsuarioRest {
         return ResponseEntity.ok(usuarioActualizado);
     }
 
-    @CrossOrigin
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         Optional<Usuario> usuarioExistente = usuarioService.findById(id);

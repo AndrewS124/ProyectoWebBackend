@@ -13,9 +13,25 @@ import java.util.Optional;
 public class UsuarioService implements UsuarioRepository {
     @Autowired
     UsuarioRepository usuarioRepository;
+
     @Override
     public <S extends Usuario> S save(S entity) {
         return usuarioRepository.save(entity);
+    }
+
+    @Override
+    public List<Usuario> findUsuariosByTipo(String tipo) {
+        return null;
+    }
+
+    @Override
+    public Boolean existsByCorreo(String correo) {
+        return null;
+    }
+
+    @Override
+    public Optional<Usuario> findByCorreo(String correo) {
+        return Optional.empty();
     }
 
     @Override
@@ -73,9 +89,6 @@ public class UsuarioService implements UsuarioRepository {
         usuarioRepository.deleteAll();
     }
 
-    @Override
-    public List<Usuario> findUsuariosByTipo(String tipo) {
-        return null;
-    }
+
 }
 

@@ -1,7 +1,5 @@
 package com.example.musiclist2.modelo;
 
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
