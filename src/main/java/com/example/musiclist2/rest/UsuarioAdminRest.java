@@ -19,7 +19,7 @@ public class UsuarioAdminRest {
     @Autowired
     private UsuarioAdminService usuarioAdminService;
 
-
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<UsuarioAdmin> createUsuario(@RequestBody UsuarioAdmin usuarioAdmin) {
         UsuarioAdmin nuevoUsuarioAdmin = usuarioAdminService.save(usuarioAdmin);
@@ -27,7 +27,7 @@ public class UsuarioAdminRest {
     }
 
 
-
+    @CrossOrigin
     @GetMapping
     private ResponseEntity<Iterable<UsuarioAdmin>> getAllJugadores() {
         Iterable<UsuarioAdmin> equipos = usuarioAdminService.findAll();
@@ -38,7 +38,7 @@ public class UsuarioAdminRest {
         return ResponseEntity.ok(equiposList);
     }
 
-
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioAdmin> updateUsuarioAdmin(@PathVariable Long id, @RequestBody UsuarioAdmin usuarioAdmin) {
         Optional<UsuarioAdmin> usuarioAdminExistente = usuarioAdminService.findById(id);
@@ -53,7 +53,7 @@ public class UsuarioAdminRest {
         return ResponseEntity.ok(usuarioAdminActualizado);
     }
 
-
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuarioAdmin(@PathVariable Long id) {
         Optional<UsuarioAdmin> usuarioAdminExistente = usuarioAdminService.findById(id);

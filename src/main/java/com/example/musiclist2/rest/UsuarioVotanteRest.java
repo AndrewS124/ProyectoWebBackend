@@ -1,5 +1,6 @@
 package com.example.musiclist2.rest;
 
+import com.example.musiclist2.dto.UsuarioVotanteDTO;
 import com.example.musiclist2.modelo.Usuario;
 import com.example.musiclist2.modelo.UsuarioVotante;
 import com.example.musiclist2.service.UsuarioVotanteService;
@@ -16,55 +17,30 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/UsuarioVotante/")
 public class UsuarioVotanteRest {
+
     @Autowired
     private UsuarioVotanteService usuarioVotanteService;
-
-
-    @PostMapping
-    public ResponseEntity<UsuarioVotante> createUsuario(@RequestBody UsuarioVotante usuarioVotante) {
-        UsuarioVotante nuevoUsuarioVotante = usuarioVotanteService.save(usuarioVotante);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuarioVotante);
-    }
-
-
+    @CrossOrigin
     @GetMapping
-    private ResponseEntity<Iterable<UsuarioVotante>> getAllUsuarios() {
-        Iterable<UsuarioVotante> usuariosVotantes = usuarioVotanteService.findAll();
-        List<UsuarioVotante> usuariosVotantesList = new ArrayList<>();
-
-        usuariosVotantes.forEach(usuariosVotantesList::add);
-
-        return ResponseEntity.ok(usuariosVotantesList);
+    public List<UsuarioVotanteDTO> getAllUsuariosVotantes() {
+        return usuarioVotanteService.findAll();
+    }
+    @CrossOrigin
+    @PostMapping
+    public UsuarioVotanteDTO createUsuarioVotante(@RequestBody UsuarioVotanteDTO usuarioVotanteDTO) {
+        return usuarioVotanteService.createUsuarioVotante(usuarioVotanteDTO);
     }
 
-
-
+    @CrossOrigin
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioVotante> updateUsuario(@PathVariable Long id, @RequestBody UsuarioVotante usuarioVotante) {
-        Optional<UsuarioVotante> usuarioVotanteExistente = usuarioVotanteService.findById(id);
-
-        if (usuarioVotanteExistente.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        usuarioVotante.setId(id);
-        UsuarioVotante usuarioAdminActualizado = usuarioVotanteService.save(usuarioVotante);
-
-        return ResponseEntity.ok(usuarioAdminActualizado);
+    public UsuarioVotanteDTO updateUsuarioVotante(@PathVariable Long id, @RequestBody UsuarioVotanteDTO usuarioVotanteDTO) {
+        return usuarioVotanteService.updateUsuarioVotante(id, usuarioVotanteDTO);
     }
 
-
+    @CrossOrigin
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUsuarioVotante(@PathVariable Long id) {
-        Optional<UsuarioVotante> usuarioVotanteExistente = usuarioVotanteService.findById(id);
-
-        if (usuarioVotanteExistente.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        usuarioVotanteService.delete(usuarioVotanteExistente.get());
-        return ResponseEntity.noContent().build();
+    public void deleteUsuarioVotante(@PathVariable Long id) {
+        usuarioVotanteService.deleteUsuarioVotante(id);
     }
-
 }
 

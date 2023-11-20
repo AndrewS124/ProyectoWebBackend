@@ -45,6 +45,9 @@ public class Genero {
     public List<Cancion> getCanciones() {
         return canciones;
     }
+    public void setCanciones(List<Cancion> canciones) {
+        this.canciones = canciones;
+    }
 
 
 }

@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CancionRepository extends CrudRepository<Cancion, Long> {
-
+    List<Cancion> findAll();
 
 }

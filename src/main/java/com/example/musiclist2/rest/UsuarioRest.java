@@ -1,5 +1,6 @@
 package com.example.musiclist2.rest;
 
+import com.example.musiclist2.dto.UsuariosDTO;
 import com.example.musiclist2.modelo.Usuario;
 import com.example.musiclist2.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,51 +16,48 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/Usuario/")
 public class UsuarioRest {
-
-
     @Autowired
     private UsuarioService usuarioService;
 
-
-
+    // Endpoint para obtener todos los usuarios
+    @CrossOrigin
     @GetMapping
-    private ResponseEntity<Iterable<Usuario>> getAllUsuarios() {
-        Iterable<Usuario> usuarios = usuarioService.findAll();
-        List<Usuario> usuariosList = new ArrayList<>();
+    public ResponseEntity<List<UsuariosDTO>> getAllUsuarios() {
+        List<UsuariosDTO> usuarios = usuarioService.findAll();
+
+        List<UsuariosDTO> usuariosList = new ArrayList<>();
 
         usuarios.forEach(usuariosList::add);
 
         return ResponseEntity.ok(usuariosList);
     }
 
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Optional<Usuario> usuarioExistente = usuarioService.findById(id);
-
-        if (!usuarioExistente.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        usuario.setId(id);
-        Usuario usuarioActualizado = usuarioService.save(usuario);
-
-        return ResponseEntity.ok(usuarioActualizado);
+    // Endpoint para crear un nuevo usuario
+    @CrossOrigin
+    @PostMapping
+    public ResponseEntity<UsuariosDTO> createUsuario(@RequestBody UsuariosDTO usuarioDTO) {
+        UsuariosDTO nuevoUsuario = usuarioService.createUsuario(usuarioDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
     }
 
+    // Endpoint para actualizar un usuario existente
+    @CrossOrigin
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuariosDTO> updateUsuario(@PathVariable Long id, @RequestBody UsuariosDTO usuarioDTO) {
+        UsuariosDTO usuarioActualizado = usuarioService.updateUsuario(id, usuarioDTO);
+        if (usuarioActualizado != null) {
+            return ResponseEntity.ok(usuarioActualizado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
+    // Endpoint para eliminar un usuario por su ID
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-        Optional<Usuario> usuarioExistente = usuarioService.findById(id);
-
-        if (!usuarioExistente.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        usuarioService.delete(usuarioExistente.get());
+        usuarioService.deleteUsuario(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
 
