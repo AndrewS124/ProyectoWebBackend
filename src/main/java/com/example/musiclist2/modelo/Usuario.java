@@ -1,11 +1,22 @@
 package com.example.musiclist2.modelo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.List;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario {
+public class Usuario  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +36,7 @@ public class Usuario {
     private String tipo;
 
     public Usuario() {
+
     }
 
     public Usuario(String nombre, String correo, String contraseña, boolean autenticacion, String tipo) {
@@ -82,4 +94,5 @@ public class Usuario {
     public void setAutenticacion(boolean autenticacion) {
         this.autenticacion = autenticacion;
     }
+
 }

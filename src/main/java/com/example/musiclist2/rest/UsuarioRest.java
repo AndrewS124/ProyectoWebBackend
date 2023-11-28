@@ -52,7 +52,6 @@ public class UsuarioRest {
         }
     }
 
-    // Endpoint para eliminar un usuario por su ID
     @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {

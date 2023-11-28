@@ -1,6 +1,8 @@
 package com.example.musiclist2.dto;
 
-public class UsuariosDTO {
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class UsuariosDTO  {
     private Long id;
     private String nombre;
     private String correo;
